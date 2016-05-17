@@ -50,6 +50,12 @@ void setup() {
   pinMode(middlePhotoTransistor, INPUT);
   pinMode(rightPhotoTransistor, INPUT);
   pinMode(pushbutton,INPUT);
+
+  //here we will set the base levels
+  leftBase = setAmbientBase(leftPhotoTransistor);
+  middleBase = setAmbientBase(middlePhotoTransistor);
+  rightBase = setAmbientBase(rightPhotoTransistor);
+  
   Serial.begin(9600);
 }
 
