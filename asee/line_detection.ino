@@ -1,3 +1,4 @@
+
 //setAmbientBase takes in a pin and returns the ambient light level.  Very useful for the setup() procedure, maybe elsewhere
 int setAmbientBase(int pin){
   int baseLevel = analogRead(pin);
@@ -6,6 +7,14 @@ int setAmbientBase(int pin){
   delay(ambientWaitTime);
   baseLevel+=analogRead(pin);
   return baseLevel/=3;
+}
+
+//lineDetected() is a boolean function that returns true if any of our main PhotoTransistors see the black line
+bool lineDetected(){
+  int leftDiff = leftBase -analogRead(leftPhotoTransistor);
+  int middleDiff = middleBase - analogRead(middlePhotoTransistor);
+  int rightDiff = rightBase - analogRead(rightPhotoTransistor);
+  return (leftDiff>LIGHT_THRESHOLD)||(middleDiff>LIGHT_THRESHOLD)||(rightDiff>LIGHT_THRESHOLD);
 }
 
 //determineSide() returns 1 if on left 2 if in middle 3 if on right
