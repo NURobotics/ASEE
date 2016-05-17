@@ -1,6 +1,8 @@
 //enable is pin 6 (pwm)
 //dir is pin 4(digital)
 
+#define ambientWaitTime 3
+//ambientWaitTime is the amount of time we are waiting between our averaging
 int en1 = 5;
 int dir1 = 7;
 
@@ -25,6 +27,10 @@ int leftPhotoTransistor=A1;
 int middlePhotoTransistor=A2;
 int rightPhotoTransistor=A3;
 
+int leftBase=0;
+int middleBase=0;
+int rightBase=0;
+//these three bases are the base levels initially determined of ambient light during the setup procedure
 unsigned long timer;
 
 
