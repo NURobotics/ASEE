@@ -21,7 +21,9 @@ int dir5 = 13;
 
 int photo1 = 5;
 int photo2 = 4;
-
+int leftPhotoTransistor=A1;
+int middlePhotoTransistor=A2;
+int rightPhotoTransistor=A3;
 
 unsigned long timer;
 
@@ -38,10 +40,11 @@ void setup() {
   pinMode(en4, OUTPUT);
   pinMode(en5, OUTPUT);
   pinMode(dir5, OUTPUT);
-  
-  
+  pinMode(leftPhotoTransistor, INPUT);
+  pinMode(middlePhotoTransistor, INPUT);
+  pinMode(rightPhotoTransistor, INPUT);
   pinMode(pushbutton,INPUT);
-
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -52,9 +55,10 @@ void loop() {
 //    delay(1000);
   
 
-  y = analogRead(photo1); //right sensor
-  x = analogRead(photo2); //left sensor
-
+  //y = analogRead(photo1); //right sensor
+  //x = analogRead(photo2); //left sensor
+  Serial.println(analogRead(leftPhotoTransistor));
+  delay(250);
   if(x <= 500) { //if left sees black
     drift_left(80,0);
   }else if(y <= 500) {
