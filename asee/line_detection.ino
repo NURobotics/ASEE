@@ -2,9 +2,9 @@
 //setAmbientBase takes in a pin and returns the ambient light level.  Very useful for the setup() procedure, maybe elsewhere
 int setAmbientBase(int pin){
   int baseLevel = analogRead(pin);
-  delay(ambientWaitTime);
+  delay(AMBIENT_WAIT_TIME);
   baseLevel+= analogRead(pin);
-  delay(ambientWaitTime);
+  delay(AMBIENT_WAIT_TIME);
   baseLevel+=analogRead(pin);
   return baseLevel/=3;
 }

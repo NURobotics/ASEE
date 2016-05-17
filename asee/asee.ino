@@ -1,9 +1,9 @@
 //enable is pin 6 (pwm)
 //dir is pin 4(digital)
 
-//ambientWaitTime is the amount of time we are waiting between our averaging
-#define ambientWaitTime 3
-//lightThreshold is what we will use as our threshold between our ambient base and our current read to determine if we are touching the line at all
+//AMBIENT_WAIT_TIME is the amount of time we are waiting between our averaging
+#define AMBIENT_WAIT_TIME 3
+//LIGHT_THRESHOLD is what we will use as our threshold between our ambient base and our current read to determine if we are touching the line at all
 #define LIGHT_THRESHOLD 150
 int en1 = 5;
 int dir1 = 7;
