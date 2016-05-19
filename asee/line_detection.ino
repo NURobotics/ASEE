@@ -20,12 +20,13 @@ bool lineDetected(){
 //determineSide() returns 1 if on left 2 if in middle 3 if on right
 //especially useful if more than one are determined to be reading black
 int determineSide(){
-  int leftValue = analogRead(leftPhotoTransistor);
-  int middleValue = analogRead(middlePhotoTransistor);
-  int rightValue = analogRead(rightPhotoTransistor);
-  int minValue = min(leftValue, middleValue);
-  minValue = min(minValue, rightValue);
-  //that gets the minimum of the three photoTranistor Values
+  int leftValue = leftBase-analogRead(leftPhotoTransistor);
+  int middleValue = middleBase-analogRead(middlePhotoTransistor);
+  int rightValue = rightBase-analogRead(rightPhotoTransistor);
+  int minValue = max(leftValue, middleValue);
+  minValue = max(minValue, rightValue);
+  //that gets the maximum of the difference between the base and the current
+  //This basically says whatever cahnged the most (got the lowest) as compared to the base will be the side we believe the black is closest too
   if (minValue==middleValue){
     return 2;
   }
