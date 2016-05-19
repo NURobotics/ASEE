@@ -73,12 +73,31 @@ void loop() {
   //x = analogRead(photo2); //left sensor
   Serial.println(analogRead(leftPhotoTransistor));
   delay(250);
+  /*
   if(x <= 500) { //if left sees black
     drift_left(80,0);
   }else if(y <= 500) {
     drift_right(80,0);
   }else {
  all_forward(100);
+  }*/
+  if (lineDetected()){
+    int side = determineSide();
+    if (side ==1){
+      //we are on the left so we want to drift slightly right
+      drift_right(80, 0);
+    }
+    else if (side==2){
+      //we are in the middle so go forward
+      all_forward(100);
+    }
+    else{
+      //we are on the right so we want to drift slightly left
+      drift_left(80,0);
+    }
+  }
+  else{
+    //this means we didn't detect the line rn, so we want to find it.  eventually call some sort of function here.
   }
 
 }
