@@ -26,12 +26,17 @@ int dir5 = 13;
 
 int photo1 = 5;
 int photo2 = 4;
-int leftPhotoTransistor=A1;
+int leftPhotoTransistor=A0;
+int leftMiddlePhotoTransistor=A1;
 int middlePhotoTransistor=A2;
-int rightPhotoTransistor=A3;
+int rightMiddlePhotoTransistor=A3;
+int rightPhotoTransistor=A4;
+
 
 int leftBase=0;
+int leftMiddleBase=0;
 int middleBase=0;
+int rightMiddleBase=0;
 int rightBase=0;
 //these three bases are the base levels initially determined of ambient light during the setup procedure
 unsigned long timer;
@@ -56,7 +61,9 @@ void setup() {
 
   //here we will set the base levels
   leftBase = setAmbientBase(leftPhotoTransistor);
+  leftMiddleBase=setAmbientBase(leftMiddlePhotoTransistor);
   middleBase = setAmbientBase(middlePhotoTransistor);
+  rightMiddleBase=setAmbientBase(rightMiddlePhotoTransistor);
   rightBase = setAmbientBase(rightPhotoTransistor);
   
   Serial.begin(9600);
@@ -69,12 +76,9 @@ void loop() {
 //
 //    delay(1000);
   
-  printAnalogs();
+  printPhotoTransistors();
   delay(200);
-  //y = analogRead(photo1); //right sensor
-  //x = analogRead(photo2); //left sensor
-  //Serial.println(analogRead(leftPhotoTransistor));
-  //delay(250);
+
   if (lineDetected()){
     int side = determineSide();
     if (side ==1){
@@ -122,14 +126,19 @@ void output_photo() {
 }
 
 void printPhotoTransistors(){
-  Serial.println(analogRead(leftPhotoTransistor));
-  Serial.println(analogRead(middlePhotoTransistor));
-  Serial.println(analogRead(rightPhotoTransistor));
-  
+  //prints out the value from all the photoTransistors
+
+  for (int i = A0;i<=A4;i++){
+    Serial.print(analogRead(i));
+    Serial.print("      ");
+  }
+  Serial.println();
+
 }
 
 void printAnalogs(){
-  for (int i = A0;i<=A4;i++){
+  //basically same thing as print photoTransistors but this will also print A5
+  for (int i = A0;i<=A5;i++){
     Serial.print(analogRead(i));
     Serial.print("      ");
   }

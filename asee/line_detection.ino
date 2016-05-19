@@ -17,25 +17,38 @@ bool lineDetected(){
   return (leftDiff>LIGHT_THRESHOLD)||(middleDiff>LIGHT_THRESHOLD)||(rightDiff>LIGHT_THRESHOLD);
 }
 
-//determineSide() returns 1 if on left 2 if in middle 3 if on right
+//determineSide() returns 1 if on left 2 if in left middle 3 if in middle 4 if in right middle and 5 if on right
 //especially useful if more than one are determined to be reading black
 int determineSide(){
   int leftValue = leftBase-analogRead(leftPhotoTransistor);
+  int leftMiddleValue=leftMiddleBase-analogRead(leftMiddlePhotoTransistor);
   int middleValue = middleBase-analogRead(middlePhotoTransistor);
+  int rightMiddleValue=rightMiddleBase-analogRead(rightMiddlePhotoTransistor);
   int rightValue = rightBase-analogRead(rightPhotoTransistor);
-  int minValue = max(leftValue, middleValue);
-  minValue = max(minValue, rightValue);
+  int leftMinValue = max(leftValue, leftMiddleValue);
+  int rightMinValue = max(rightValue, rightMiddleValue);
+  int minValue = max(leftMinValue,rightMinValue);
+  minValue=max(minValue, middleValue); 
   //that gets the maximum of the difference between the base and the current
-  //This basically says whatever cahnged the most (got the lowest) as compared to the base will be the side we believe the black is closest too
-  if (minValue==middleValue){
-    return 2;
-  }
-  else if (minValue==leftValue){
+  //This basically says whatever changed the most (got the lowest) as compared to the base will be the side we believe the black is closest too
+  if (minValue==leftValue){
     return 1;
   }
-  else{
+  else if (minValue==leftMiddleValue){
+    return 2;
+  }
+  else if (minValue==middleValue){
     return 3;
   }
-  
+  else if (minValue==rightMiddleValue){
+    return 4;
+  }
+  else if (minValue==rightValue){
+    return 5;
+  }
+  else{
+    Serial.println("This shouldnt happen");
+    return -1;
+  }
 }
 
