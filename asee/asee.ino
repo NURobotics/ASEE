@@ -81,17 +81,24 @@ void loop() {
 
   if (lineDetected()){
     int side = determineSide();
-    if (side ==1){
-      //we are on the left so we want to drift slightly right
+    if (side ==2){
+      //we are sligthly on the left so we want to drift slightly right
       drift_right(80, 0);
     }
-    else if (side==2){
+    else if (side==3){
       //we are in the middle so go forward
       all_forward(100);
     }
-    else{
-      //we are on the right so we want to drift slightly left
+    else if (side==4){
+      //we are slightly on the right so we want to drift slightly left
       drift_left(80,0);
+    }
+    else if (side==1){
+      //we are all the way on left so we need a more extreme turn
+      drift_right(100,0);
+    }
+    else if (side==5){
+      drift_left(100,0);
     }
   }
   else{
