@@ -69,7 +69,8 @@ void loop() {
 //
 //    delay(1000);
   
-
+  printAnalogs();
+  delay(200);
   //y = analogRead(photo1); //right sensor
   //x = analogRead(photo2); //left sensor
   //Serial.println(analogRead(leftPhotoTransistor));
@@ -118,5 +119,20 @@ void output_photo() {
   Serial.print("    ");
   Serial.println(y);
 
+}
+
+void printPhotoTransistors(){
+  Serial.println(analogRead(leftPhotoTransistor));
+  Serial.println(analogRead(middlePhotoTransistor));
+  Serial.println(analogRead(rightPhotoTransistor));
+  
+}
+
+void printAnalogs(){
+  for (int i = A0;i<=A4;i++){
+    Serial.print(analogRead(i));
+    Serial.print("      ");
+  }
+  Serial.println();
 }
 
