@@ -5,6 +5,7 @@
 #define AMBIENT_WAIT_TIME 3
 //LIGHT_THRESHOLD is what we will use as our threshold between our ambient base and our current read to determine if we are touching the line at all
 #define LIGHT_THRESHOLD 150
+#define RING_MOTOR_POWER 75
 int en1 = 5;
 int dir1 = 7;
 
@@ -71,16 +72,8 @@ void loop() {
 
   //y = analogRead(photo1); //right sensor
   //x = analogRead(photo2); //left sensor
-  Serial.println(analogRead(leftPhotoTransistor));
-  delay(250);
-  /*
-  if(x <= 500) { //if left sees black
-    drift_left(80,0);
-  }else if(y <= 500) {
-    drift_right(80,0);
-  }else {
- all_forward(100);
-  }*/
+  //Serial.println(analogRead(leftPhotoTransistor));
+  //delay(250);
   if (lineDetected()){
     int side = determineSide();
     if (side ==1){
@@ -97,7 +90,10 @@ void loop() {
     }
   }
   else{
-    //this means we didn't detect the line rn, so we want to find it.  eventually call some sort of function here.
+    //this means we didn't detect the line rn, so we are probably past the line and ready to drop
+    drop_one_ring();
+    //now we want to do a hard turn in either direction depending on which turn it is.
+    
   }
 
 }
@@ -106,7 +102,7 @@ void drop_one_ring() {
   timer = millis(); 
   
   while(millis() - timer <= 50) {
-    analogWrite(en5,100);
+    analogWrite(en5,RING_MOTOR_POWER);
     digitalWrite(dir5,HIGH);
   }
   analogWrite(en5,0);
